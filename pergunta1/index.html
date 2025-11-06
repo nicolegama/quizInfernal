@@ -105,6 +105,9 @@
 			<a href="../pergunta2/index.html" class="next-question-link">Próxima pergunta</a>
 		</main>
 
+		<ul class="notifications">
+		</ul>
+
 		<dialog id="feedback-popup">
 			<div class="dialog-content">
 				<h2>Você está gostando do quiz???</h2>
@@ -162,52 +165,67 @@
 			</div>
 		</footer>
 
-		<ul class="notifications">
-		</ul>
-
-
 		<script src="script.js"></script>
-		
 		<script type="module">
 			const { fakerPT_BR: faker } = await import('https://esm.sh/@faker-js/faker');
-
-
-
-
-function createNotification() {
-	const randomAvatar = faker.image.avatar()
-	const randomName = faker.person.firstName();
-
-	const notification = document.createElement('article')
-	notification.classList.add('notification')
-
-	const notificationsContainer = document.querySelector('ul.notifications')
-	const listItem = document.createElement('li')
-	listItem.append(notification)
-	notificationsContainer.append(listItem)
-
-	const imageContainer = document.createElement('div')
-	notification.append(imageContainer)
-
-	const image = document.createElement('img')
-	imageContainer.append(image)
-	image.src = randomAvatar
-
-	const textContainer = document.createElement('div')
-	notification.append(textContainer)
-
-	const nameSpan = document.createElement('span')
-	nameSpan.classList.add('name')
-	textContainer.append(nameSpan)
-	nameSpan.textContent = randomName
-
-	const contentSpan = document.createElement('span')
-	textContainer.append(contentSpan)
-	contentSpan.textContent = " completou o quiz e descobriu que é uma coxinha!"
-
-	setTimeout(() => listItem.remove(), 5 * 1000)
-}
-
+			
+			const MIN_INTERVAL_MS = 500
+			const MAX_INTERVAL_MS = 6 * 1000
+			
+			createNotificationsRandomly()
+			
+			function getNextInterval() {
+				return Math.max(MIN_INTERVAL_MS, Math.random() * MAX_INTERVAL_MS)
+			}
+			
+			function createNotificationsRandomly() {
+				createNotification()
+				setTimeout(createNotificationsRandomly, getNextInterval())
+			}
+			
+			function createNotification() {
+				const randomAvatar = faker.image.avatar();
+				const randomName = faker.person.firstName();
+				
+				const notification = document.createElement('article');
+				notification.classList.add('notification');
+				
+				const notificationsContainer = document.querySelector('ul.notifications');
+				const listItem = document.createElement('li');
+				listItem.append(notification);
+				notificationsContainer.append(listItem);
+				
+				const imageContainer = document.createElement('div');
+				notification.append(imageContainer);
+				
+				const image = document.createElement('img');
+				imageContainer.append(image);
+				image.src = randomAvatar;
+				
+				const textContainer = document.createElement('div');
+				notification.append(textContainer);
+				textContainer.classList.add('text-container')
+				
+				const text = document.createElement('p')
+				textContainer.append(text)
+				
+				const nameSpan = document.createElement('span');
+				nameSpan.classList.add('name');
+				nameSpan.textContent = randomName;
+				text.append(nameSpan);
+				
+				const contentSpan = document.createElement('span');
+				contentSpan.textContent = ' completou o quiz e descobriu que é uma coxinha!';
+				text.append(contentSpan);
+				
+				setTimeout(() => {
+					notification.classList.add("slide-out")
+					
+					notification.addEventListener('animationend',() => {
+						listItem.remove()
+						})
+						}, 5 * 1000);
+					}
 		</script>
 
 		<!-- SVGs -->
