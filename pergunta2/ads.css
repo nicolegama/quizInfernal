@@ -1,0 +1,96 @@
+.quiz-option-ad .option-label {
+    color: var(--color-tertiary);
+    font-weight: 700;
+}
+
+.ad-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none; 
+}
+
+.ad-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    display: none;
+}
+
+.ad-modal h3 {
+    color: var(--color-tertiary);
+    font-size: 28px;
+    margin: 0;
+}
+
+.ad-modal img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.ad-modal-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: var(--color-tertiary);
+    color: var(--color-white);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 5px;
+    animation: pulse 1.5s infinite;
+}
+
+.ad-modal-button:hover {
+    opacity: 1;
+    background-color: var(--color-quaternary);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 25px;
+    text-align: center;
+}
+
+.close-modal-btn:hover {
+    background-color: #aaa;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.ad-overlay.active,
+.ad-modal.active {
+    display: flex;
+}
