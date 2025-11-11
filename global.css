@@ -106,6 +106,19 @@ body {
     font-weight: 700;
 }
 
+.header-title a {
+    text-decoration: none;
+    color: var(--color-quaternary);
+    cursor: pointer;
+}
+
+.header-title a:hover,
+.header-title a:focus,
+.header-title a:active {
+    text-decoration: none;
+    color: var(--color-quaternary);
+}
+
 .fire-icon {
     width: 30px;
     height: 30px;
