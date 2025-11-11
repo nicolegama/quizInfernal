@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recheio (Pergunta 2) - Quizz Infernal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="ads.css"> </head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <h1>Quizz Infernal</h1>
+                <img src="../assets/fire.png" alt="Ícone de Fogo" class="fire-icon">
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+            <nav class="header-nav" id="headerNav">
+                <a href="../index.html" class="nav-link">Início</a>
+                <a href="../about.html" class="nav-link">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <nav class="nav nav-left">
+        <div class="ad ad-template1">
+            <img src="../assets/add/add1.png" alt="Anúncio">
+            <p>Descubra algo incrível!</p>
+        </div>
+        <div class="ad ad-template2">
+            <img src="../assets/add/add2.png" alt="Anúncio">
+            <p>Oferta especial para você</p>
+        </div>
+    </nav>
+
+    <main class="main">
+        <form id="quiz-form" action="../pergunta3/index.html"> <fieldset>
+                <legend>Qual seu recheio favorito?</legend>
+
+                <div class="options" id="quizOptionsContainer">
+                    <div class="option" data-value="catupiry">
+                        <input id="p2-catupiry" type="radio" name="recheio" value="catupiry">
+                        <div class="option-image">
+                            <img src="/assets/pergunta2/catupiry.jpg" alt="Catupiry">
+                        </div>
+                        <label class="option-label" for="p2-catupiry">Catupiry</label>
+                    </div>
+
+                    <div class="option" data-value="cheddar">
+                        <input id="p2-cheddar" type="radio" name="recheio" value="cheddar">
+                        <div class="option-image">
+                            <img src="../assets/pergunta2/cheddar.webp" alt="Cheddar">
+                        </div>
+                        <label class="option-label" for="p2-cheddar">Cheddar</label>
+                    </div>
+
+                    <div class="option quiz-option-ad" data-href="https://www.mercadolivre.com.br/conamix-calabresa-c-25-sbr-para-fazer-linguica-calabresa/p/MLB37238805">
+                        <div class="option-image">
+                            <img src="../assets/pergunta2/calabresa.webp" alt="Calebresa Deliciosa">
+                        </div>
+                        <label class="option-label">Calebresa Deliciosa</label>
+                    </div>
+                    
+                    <div class="option" data-value="frango">
+                        <input id="p2-frango" type="radio" name="recheio" value="frango">
+                        <div class="option-image">
+                            <img src="../assets/pergunta2/frango.jpg" alt="Frango">
+                        </div>
+                        <label class="option-label" for="p2-frango">Frango</label>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <button id="next-question-btn" class="next-question-btn" disabled>
+                Próxima Pergunta
+            </button>
+        </form>
+    </main>
+
+    <nav class="nav nav-right">
+        <div class="ad ad-template4">
+            <img src="../assets/add/add4.png" alt="Anúncio">
+            <p>Aproveite agora!</p>
+        </div>
+        <div class="ad ad-template3">
+            <img src="../assets/add/add3.png" alt="Anúncio">
+            <p>Não perca esta oportunidade</p>
+        </div>
+    </nav>
+
+    <footer class="footer">
+        </footer>
+
+    <div id="ad-overlay" class="ad-overlay"></div>
+    <div id="ad-modal" class="ad-modal">
+        <button id="close-modal-btn" class="close-modal-btn">X</button>
+        <h3>PARABÉNS! VOCÊ GANHOU!</h3>
+        <p>Você foi o visitante de número 1.000.000!</p>
+        <img src="../assets/add/add1.png" alt="Anúncio de prêmio falso">
+        <a href="httpsa://example.com/fake-ad-page" target="_blank" class="ad-modal-button">CLIQUE AQUI PARA RESGATAR!</a>
+    </div>
+
+    <script src="../script.js"></script> <script src="script.js"></script> </body>
+</html>
