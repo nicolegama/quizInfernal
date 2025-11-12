@@ -1,231 +1,242 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const modalTrigger = document.getElementById("resultadoModalTrigger");
-    const modalOverlay = document.getElementById("resultadoModalOverlay");
-    const modalClose = document.getElementById("resultadoModalClose");
-    const modalContent = document.getElementById("resultadoModalContent");
-    const phoneInput = document.getElementById("resultadoModalTelefone");
-    const form = document.getElementById("resultadoForm");
-    const errorMessage = document.getElementById("resultadoModalError");
-    const formWrapper = document.getElementById("resultadoModalFormWrapper");
-    const loadingWrapper = document.getElementById(
-        "resultadoModalLoadingWrapper"
+document.addEventListener('DOMContentLoaded', function () {
+  const modalTrigger = document.getElementById('resultadoModalTrigger');
+  const modalOverlay = document.getElementById('resultadoModalOverlay');
+  const modalClose = document.getElementById('resultadoModalClose');
+  const modalContent = document.getElementById('resultadoModalContent');
+  const phoneInput = document.getElementById('resultadoModalTelefone');
+  const form = document.getElementById('resultadoForm');
+  const errorMessage = document.getElementById('resultadoModalError');
+  const formWrapper = document.getElementById('resultadoModalFormWrapper');
+  const loadingWrapper = document.getElementById(
+    'resultadoModalLoadingWrapper',
+  );
+  const assinarPlanoWrapper = document.getElementById(
+    'resultadoModalAssinarPlano',
+  );
+  const assinarPlanoButtons = document.querySelectorAll(
+    '.resultado-plano-card-assinatura-button',
+  );
+  const nameField = form.querySelector('#resultadoModalNome');
+  const emailField = form.querySelector('#resultadoModalEmail');
+  const phoneField = form.querySelector('#resultadoModalTelefone');
+  const consentField = form.querySelector('#resultadoConsentimento');
+  const nameWrapper = nameField.closest('.resultado-modal-form-field');
+  const emailWrapper = emailField.closest('.resultado-modal-form-field');
+  const phoneWrapper = phoneField.closest('.resultado-modal-form-field');
+  const consentWrapper = consentField.closest('.resultado-modal-form-field');
+  const proPlusPlanButton = document.getElementById('plano-pro-plus');
+  const unsubscribedSection = document.querySelector('.unsubscribed');
+  const subscribedSection = document.querySelector('.subscribed');
+
+  // Numero aleatorio entre 5 e 10 segundos
+  const LOADING_DURATION = (Math.floor(Math.random() * 5000) + 5000) * 0;
+
+  let loadingTimeoutId;
+
+  function setVisibility(element, shouldShow) {
+    if (shouldShow) {
+      element.classList.add('is-visible');
+      element.setAttribute('aria-hidden', 'false');
+      element.removeAttribute('hidden');
+    } else {
+      element.classList.remove('is-visible');
+      element.setAttribute('aria-hidden', 'true');
+      element.setAttribute('hidden', '');
+    }
+  }
+
+  function showFormState() {
+    setVisibility(formWrapper, true);
+    setVisibility(loadingWrapper, false);
+    setVisibility(assinarPlanoWrapper, false);
+  }
+
+  function showLoadingState() {
+    setVisibility(formWrapper, false);
+    setVisibility(loadingWrapper, true);
+    setVisibility(assinarPlanoWrapper, false);
+  }
+
+  function showAssinarPlanoState() {
+    setVisibility(formWrapper, false);
+    setVisibility(loadingWrapper, false);
+    setVisibility(assinarPlanoWrapper, true);
+  }
+
+  function showResults() {
+    setVisibility(modalOverlay, false);
+    setVisibility(unsubscribedSection, false);
+    setVisibility(subscribedSection, true);
+  }
+
+  function showError(message) {
+    errorMessage.textContent = message;
+  }
+
+  function resetError() {
+    errorMessage.textContent = '';
+  }
+
+  function applyPhoneMask(value) {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+
+    if (digits.length <= 2) {
+      return digits;
+    }
+
+    if (digits.length <= 6) {
+      return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    }
+
+    if (digits.length <= 10) {
+      return (
+        `(${digits.slice(0, 2)}) ` +
+        `${digits.slice(2, 6)}-` +
+        `${digits.slice(6)}`
+      );
+    }
+
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
+
+  function setFieldError(wrapper, message) {
+    wrapper.classList.add('is-invalid');
+    wrapper.dataset.error = message;
+  }
+
+  function clearFieldError(wrapper) {
+    wrapper.classList.remove('is-invalid');
+    delete wrapper.dataset.error;
+  }
+
+  function clearAllFieldErrors() {
+    [nameWrapper, emailWrapper, phoneWrapper, consentWrapper].forEach(
+      clearFieldError,
     );
-    const assinarPlanoWrapper = document.getElementById(
-        "resultadoModalAssinarPlano"
-    );
-    const assinarPlanoButtons = document.querySelectorAll(
-        ".resultado-plano-card-assinatura-button"
-    );
-    const nameField = form.querySelector("#resultadoModalNome");
-    const emailField = form.querySelector("#resultadoModalEmail");
-    const phoneField = form.querySelector("#resultadoModalTelefone");
-    const consentField = form.querySelector("#resultadoConsentimento");
-    const nameWrapper = nameField.closest(".resultado-modal-form-field");
-    const emailWrapper = emailField.closest(".resultado-modal-form-field");
-    const phoneWrapper = phoneField.closest(".resultado-modal-form-field");
-    const consentWrapper = consentField.closest(".resultado-modal-form-field");
+  }
 
-    // Numero aleatorio entre 5 e 10 segundos
-    const LOADING_DURATION = Math.floor(Math.random() * 5000) + 5000;
+  function resetModalState() {
+    form.reset();
+    resetError();
+    clearAllFieldErrors();
+    showFormState();
+  }
 
-    let loadingTimeoutId;
+  function openModal() {
+    resetModalState();
+    setVisibility(modalOverlay, true);
+  }
 
-    function setVisibility(element, shouldShow) {
-        if (shouldShow) {
-            element.classList.add("is-visible");
-            element.setAttribute("aria-hidden", "false");
-        } else {
-            element.classList.remove("is-visible");
-            element.setAttribute("aria-hidden", "true");
-        }
+  function closeModal() {
+    clearTimeout(loadingTimeoutId);
+    setVisibility(modalOverlay, false);
+  }
+
+  function handleModalContentClick(event) {
+    event.stopPropagation();
+  }
+
+  function handleAssinarPlanoClick(e) {
+    if (e.target !== proPlusPlanButton) {
+      window.alert('serviço indisponivel. Tente novamente mais tarde');
+      return;
     }
 
-    function showFormState() {
-        setVisibility(formWrapper, true);
-        setVisibility(loadingWrapper, false);
-        setVisibility(assinarPlanoWrapper, false);
+    window.alert('Obrigado pela confiança! Prossiga para ver seu resultado!!');
+    setupResult();
+    showResults();
+  }
+
+  function validateForm() {
+    let isValid = true;
+    clearAllFieldErrors();
+
+    const nomeValue = form.nome.value.trim();
+    const emailValue = form.email.value.trim();
+    const phoneValue = form.telefone.value.trim();
+    const consentChecked = form.consentimento.checked;
+
+    if (!nomeValue) {
+      setFieldError(nameWrapper, 'Informe seu nome');
+      isValid = false;
     }
 
-    function showLoadingState() {
-        setVisibility(formWrapper, false);
-        setVisibility(loadingWrapper, true);
-        setVisibility(assinarPlanoWrapper, false);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailValue) {
+      setFieldError(emailWrapper, 'Informe seu email');
+      isValid = false;
+    } else if (!emailRegex.test(emailValue)) {
+      setFieldError(emailWrapper, 'Email inválido');
+      isValid = false;
     }
 
-    function showAssinarPlanoState() {
-        setVisibility(formWrapper, false);
-        setVisibility(loadingWrapper, false);
-        setVisibility(assinarPlanoWrapper, true);
+    const digits = phoneValue.replace(/\D/g, '');
+    if (!phoneValue) {
+      setFieldError(phoneWrapper, 'Informe seu telefone');
+      isValid = false;
+    } else if (digits.length < 10) {
+      setFieldError(phoneWrapper, 'Telefone inválido');
+      isValid = false;
     }
 
-    function showError(message) {
-        errorMessage.textContent = message;
+    if (!consentChecked) {
+      setFieldError(consentWrapper, 'Consentimento obrigatório');
+      isValid = false;
     }
 
-    function resetError() {
-        errorMessage.textContent = "";
+    return isValid;
+  }
+
+  function handlePhoneInput(event) {
+    event.target.value = applyPhoneMask(event.target.value);
+    resetError();
+  }
+
+  function handleFieldInput(event) {
+    const currentField = event.currentTarget;
+    const fieldWrapper = currentField.closest('.resultado-modal-form-field');
+    if (fieldWrapper) {
+      clearFieldError(fieldWrapper);
+    }
+    resetError();
+  }
+
+  function handleConsentChange(event) {
+    if (event.currentTarget.checked) {
+      clearFieldError(consentWrapper);
+      resetError();
+    }
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const isValid = validateForm();
+
+    if (!isValid) {
+      showError('Corrija os campos destacados.');
+      return;
     }
 
-    function applyPhoneMask(value) {
-        const digits = value.replace(/\D/g, "").slice(0, 11);
+    resetError();
+    showLoadingState();
 
-        if (digits.length <= 2) {
-            return digits;
-        }
+    loadingTimeoutId = setTimeout(function () {
+      showAssinarPlanoState();
+    }, LOADING_DURATION);
+  }
 
-        if (digits.length <= 6) {
-            return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-        }
-
-        if (digits.length <= 10) {
-            return (
-                `(${digits.slice(0, 2)}) ` +
-                `${digits.slice(2, 6)}-` +
-                `${digits.slice(6)}`
-            );
-        }
-
-        return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(
-            7
-        )}`;
-    }
-
-    function setFieldError(wrapper, message) {
-        wrapper.classList.add("is-invalid");
-        wrapper.dataset.error = message;
-    }
-
-    function clearFieldError(wrapper) {
-        wrapper.classList.remove("is-invalid");
-        delete wrapper.dataset.error;
-    }
-
-    function clearAllFieldErrors() {
-        [
-            nameWrapper,
-            emailWrapper,
-            phoneWrapper,
-            consentWrapper
-        ].forEach(clearFieldError);
-    }
-
-    function resetModalState() {
-        form.reset();
-        resetError();
-        clearAllFieldErrors();
-        showFormState();
-    }
-
-    function openModal() {
-        resetModalState();
-        setVisibility(modalOverlay, true);
-    }
-
-    function closeModal() {
-        clearTimeout(loadingTimeoutId);
-        setVisibility(modalOverlay, false);
-    }
-
-    function handleModalContentClick(event) {
-        event.stopPropagation();
-    }
-
-    function handleAssinarPlanoClick() {
-        window.alert("serviço indisponivel. Tente novamente mais tarde");
-    }
-
-    function validateForm() {
-        let isValid = true;
-        clearAllFieldErrors();
-
-        const nomeValue = form.nome.value.trim();
-        const emailValue = form.email.value.trim();
-        const phoneValue = form.telefone.value.trim();
-        const consentChecked = form.consentimento.checked;
-
-        if (!nomeValue) {
-            setFieldError(nameWrapper, "Informe seu nome");
-            isValid = false;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailValue) {
-            setFieldError(emailWrapper, "Informe seu email");
-            isValid = false;
-        } else if (!emailRegex.test(emailValue)) {
-            setFieldError(emailWrapper, "Email inválido");
-            isValid = false;
-        }
-
-        const digits = phoneValue.replace(/\D/g, "");
-        if (!phoneValue) {
-            setFieldError(phoneWrapper, "Informe seu telefone");
-            isValid = false;
-        } else if (digits.length < 10) {
-            setFieldError(phoneWrapper, "Telefone inválido");
-            isValid = false;
-        }
-
-        if (!consentChecked) {
-            setFieldError(consentWrapper, "Consentimento obrigatório");
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
-    function handlePhoneInput(event) {
-        event.target.value = applyPhoneMask(event.target.value);
-        resetError();
-    }
-
-    function handleFieldInput(event) {
-        const currentField = event.currentTarget;
-        const fieldWrapper = currentField.closest(
-            ".resultado-modal-form-field"
-        );
-        if (fieldWrapper) {
-            clearFieldError(fieldWrapper);
-        }
-        resetError();
-    }
-
-    function handleConsentChange(event) {
-        if (event.currentTarget.checked) {
-            clearFieldError(consentWrapper);
-            resetError();
-        }
-    }
-
-    function handleFormSubmit(event) {
-        event.preventDefault();
-
-        const isValid = validateForm();
-
-        if (!isValid) {
-            showError("Corrija os campos destacados.");
-            return;
-        }
-
-        resetError();
-        showLoadingState();
-
-        loadingTimeoutId = setTimeout(function () {
-            showAssinarPlanoState();
-        }, LOADING_DURATION);
-    }
-
-    modalTrigger.addEventListener("click", openModal);
-    modalClose.addEventListener("click", closeModal);
-    modalContent.addEventListener("click", handleModalContentClick);
-    modalOverlay.addEventListener("click", closeModal);
-    assinarPlanoButtons.forEach(function (button) {
-        button.addEventListener("click", handleAssinarPlanoClick);
-    });
-    phoneInput.addEventListener("input", handlePhoneInput);
-    form.nome.addEventListener("input", handleFieldInput);
-    form.email.addEventListener("input", handleFieldInput);
-    form.telefone.addEventListener("input", handleFieldInput);
-    form.consentimento.addEventListener("change", handleConsentChange);
-    form.addEventListener("submit", handleFormSubmit);
+  modalTrigger.addEventListener('click', openModal);
+  modalClose.addEventListener('click', closeModal);
+  modalContent.addEventListener('click', handleModalContentClick);
+  modalOverlay.addEventListener('click', closeModal);
+  assinarPlanoButtons.forEach(function (button) {
+    button.addEventListener('click', handleAssinarPlanoClick);
+  });
+  phoneInput.addEventListener('input', handlePhoneInput);
+  form.nome.addEventListener('input', handleFieldInput);
+  form.email.addEventListener('input', handleFieldInput);
+  form.telefone.addEventListener('input', handleFieldInput);
+  form.consentimento.addEventListener('change', handleConsentChange);
+  form.addEventListener('submit', handleFormSubmit);
 });
