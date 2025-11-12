@@ -1,3 +1,12 @@
+/**
+ *  ESSE CSS NÂO PASSA POR VALIDAÇÃO
+ *  O validador da W3C não reconhece o @property e seletores aninhados
+ *  Entretanto, esses são recursos válidos atualmente.
+ *
+ *  Ref:
+ *  - @property, disponível em todos os grandes navegadores desde julho/24: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@property
+ *  - & nesting selector, disponível em todos os grandes navegadores desde dez/23: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Nesting_selector
+ **/
 @property --num {
   syntax: '<integer>';
   initial-value: 10531;
