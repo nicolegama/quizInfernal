@@ -4,16 +4,14 @@
   height: auto;
   bottom: 16px;
   width: 100%;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
-
   padding: 0 12px;
+}
 
-  & > li:nth-child(n + 2) {
-    display: none;
-  }
+.notifications > li:nth-child(n + 2) {
+  display: none;
 }
 
 .notification {
@@ -39,10 +37,10 @@
     left: 16px;
     width: auto;
     padding: 0;
+  }
 
-    & > li:nth-child(n + 2) {
-      display: initial;
-    }
+  .notifications > li:nth-child(n + 2) {
+    display: initial;
   }
 
   .notification {
@@ -53,12 +51,12 @@
 .notification .text-container {
   display: grid;
   place-items: center;
+}
 
-  p {
-    font-family: 'Inria sans', sans-serif;
-    font-size: 16px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  }
+.notification .text-container p {
+  font-family: 'Inria Sans', sans-serif;
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .notification .name {
@@ -72,11 +70,11 @@
   border-radius: 999px;
   border: solid 2px var(--color-primary);
   margin: auto 0;
+}
 
-  img {
-    max-height: 100%;
-    object-fit: contain;
-  }
+.notification div:has(img) img {
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .slide-out {

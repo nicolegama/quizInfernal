@@ -10,20 +10,18 @@ form {
 fieldset {
   max-width: 100%;
   border: none;
+}
 
-  legend {
-    margin-bottom: 32px;
-
-    font-size: 32px;
-    font-weight: 600;
-    font-family: 'Inria sans', sans-serif;
-  }
+fieldset legend {
+  margin-bottom: 32px;
+  font-size: 32px;
+  font-weight: 600;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 .options {
   display: grid;
   grid-template-columns: 1fr;
-
   gap: 4px;
   max-width: 100%;
 }
@@ -39,38 +37,38 @@ fieldset {
   background-color: white;
   cursor: pointer;
   margin: 0 auto;
+}
 
-  input[type='radio'] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
+.option input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
 
-  &:has(input[type='radio']:checked) {
-    border-color: #2f971c;
-  }
+.option:has(input[type='radio']:checked) {
+  border-color: #2f971c;
+}
 
-  .option-image {
-    width: 100%;
-    flex-basis: 260px;
-    overflow: hidden;
+.option .option-image {
+  width: 100%;
+  flex-basis: 260px;
+  overflow: hidden;
+}
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-  }
+.option .option-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-  .option-label {
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 600;
-    font-family: 'Inria Sans', sans-serif;
-    cursor: pointer;
-  }
+.option .option-label {
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: 'Inria Sans', sans-serif;
+  cursor: pointer;
 }
 
 .next-question-link {
@@ -79,11 +77,10 @@ fieldset {
   background-color: #2f971c;
   text-align: center;
   width: 100%;
-
   color: white;
   font-size: 20px;
   font-weight: 600;
-  font-family: 'Inria sans', sans-serif;
+  font-family: 'Inria Sans', sans-serif;
 }
 
 html:has(dialog[open]) {
@@ -99,90 +96,88 @@ dialog {
   inset: 0;
   margin: 0;
   padding: 0;
-
   background-color: rgba(0, 0, 0, 0.25);
   border: none;
   width: 100vw;
   height: 100vh;
-
   display: grid;
   place-items: center;
+}
 
-  .dialog-content {
-    padding: 12px;
-    width: min(600px, 100%);
-    min-height: 150px;
-    background-color: var(--color-primary);
-    border: solid var(--color-secondary) 4px;
+dialog .dialog-content {
+  padding: 12px;
+  width: min(600px, 100%);
+  min-height: 150px;
+  background-color: var(--color-primary);
+  border: solid var(--color-secondary) 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+dialog h2 {
+  text-align: center;
+  color: black;
+}
 
-  h2 {
-    text-align: center;
-    color: black;
-  }
+dialog .buttons {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  gap: 12px;
+}
 
-  .buttons {
-    width: 100%;
-    min-height: 50px;
-    display: flex;
-    gap: 12px;
+dialog .buttons button {
+  flex-grow: 1;
+  background-color: var(--color-secondary);
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Inria Sans', sans-serif;
+}
 
-    button {
-      flex-grow: 1;
-      background-color: var(--color-secondary);
-      border: none;
-      cursor: pointer;
+dialog .buttons button:hover {
+  filter: brightness(1.2);
+}
 
-      &:hover {
-        filter: brightness(1.2);
-      }
+dialog .stars {
+  direction: rtl;
+  gap: 0;
+}
 
-      font-size: 20px;
-      font-family: 'Inria sans', sans-serif;
-    }
-  }
+dialog .stars button {
+  background-color: transparent;
+}
 
-  .stars {
-    direction: rtl;
-    gap: 0;
+dialog
+  .stars
+  button:is(:hover, :hover ~ button, .filled, .filled ~ button)
+  svg {
+  fill: var(--color-secondary);
+}
 
-    button {
-      background-color: transparent;
+dialog .stars button:is(.filled, .filled ~ button) {
+  cursor: initial;
+}
 
-      &:is(:hover, :hover ~ button, .filled, .filled ~ button) svg {
-        fill: var(--color-secondary);
-      }
+dialog .stars button:is(.filled, .filled ~ button):hover {
+  filter: none;
+}
 
-      &:is(.filled, .filled ~ button) {
-        cursor: initial;
-
-        &:hover {
-          filter: none;
-        }
-      }
-    }
-
-    svg {
-      width: 80%;
-      color: var(--color-secondary);
-      fill: none;
-    }
-  }
+dialog .stars svg {
+  width: 80%;
+  color: var(--color-secondary);
+  fill: none;
 }
 
 .weird-slide-out {
-  animation: slide-out-bounce infinite cubic-bezier(0, 0.64, 0.27, 1.39) 1s;
+  animation: slide-out-bounce 1s cubic-bezier(0, 0.64, 0.27, 1.39) infinite;
 }
 
 @keyframes slide-out-bounce {
   from {
     transform: translateY(0);
   }
-
   to {
     transform: translateY(300px);
     opacity: 0.15;
@@ -198,7 +193,7 @@ dialog {
     height: 100%;
   }
 
-  .option-label {
+  .option .option-label {
     padding: 1rem;
   }
 
