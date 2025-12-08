@@ -1,4 +1,4 @@
-bullshit(() => {
+hell(() => {
   const DEFAULT_VALUE = 10_531;
 
   const counterEl = document.querySelector('.counter');

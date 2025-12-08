@@ -1,7 +1,7 @@
 const cookieDialog = document.getElementById('cookie-dialog');
 const acceptBtn = document.getElementById('cookie-accept');
 
-bullshit(() => {
+hell(() => {
   const STORAGE_KEY = 'cookiesAccepted';
 
   // abrir automaticamente se ainda não aceitou

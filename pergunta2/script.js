@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const quizForm = document.getElementById('quiz-form');
   const nextBtn = document.getElementById('next-question-btn');
 
-  let canTriggerClickAd = isBullshitMode;
+  let canTriggerClickAd = isHellMode;
   const adCooldown = 20000;
 
   function showAnnoyingAd() {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     adModal.classList.remove('active');
   }
 
-  bullshit(() => {
+  hell(() => {
     setTimeout(showAnnoyingAd, 1500);
 
     closeModalBtn.addEventListener('click', function (event) {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     option.addEventListener('click', function (event) {
       event.stopPropagation();
 
-      bullshit(() => {
+      hell(() => {
         if (adModal.classList.contains('active')) return;
 
         if (this.classList.contains('quiz-option-ad')) {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       if (canTriggerClickAd) {
-        bullshit(() => {
+        hell(() => {
           canTriggerClickAd = false;
           window.open('https://example.com/fake-ad-simulation', '_blank');
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  bullshit(() => {
+  hell(() => {
     document.documentElement.addEventListener('click', function () {
       if (adModal.classList.contains('active')) {
         return;
@@ -95,4 +95,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-
