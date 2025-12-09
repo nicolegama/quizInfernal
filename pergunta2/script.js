@@ -1,10 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const options = document.querySelector('.options');
+
+  shuffleOptions(options);
+
   const adOverlay = document.getElementById('ad-overlay');
   const adModal = document.getElementById('ad-modal');
   const closeModalBtn = document.getElementById('close-modal-btn');
   const quizOptions = document.querySelectorAll('.option');
   const quizForm = document.getElementById('quiz-form');
-  const nextBtn = document.getElementById('next-question-btn');
+  const nextLink = document.getElementById('next-question-link');
+
+  setupNextLink();
+  setupValidation();
 
   let canTriggerClickAd = isHellMode;
   const adCooldown = 20000;
@@ -17,6 +24,17 @@ document.addEventListener('DOMContentLoaded', function () {
   function hideAnnoyingAd() {
     adOverlay.classList.remove('active');
     adModal.classList.remove('active');
+  }
+
+  function setupValidation() {
+    const options = Array.from(document.querySelectorAll('.option input'));
+
+    nextLink.addEventListener('click', (e) => {
+      if (!options.some((option) => option.checked)) {
+        e.preventDefault();
+        window.alert('Selecione uma opção!!');
+      }
+    });
   }
 
   hell(() => {
@@ -46,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         hell(() => {
           canTriggerClickAd = false;
           window.open('https://example.com/fake-ad-simulation', '_blank');
-
           setTimeout(() => {
             canTriggerClickAd = true;
           }, adCooldown);
@@ -58,10 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const radioInput = this.querySelector('input[type="radio"]');
         if (radioInput) {
           radioInput.checked = true;
-
           localStorage.setItem('question-2-answer', radioInput.value);
-
-          nextBtn.disabled = false;
+          if (nextLink) nextLink.classList.remove('disabled');
         }
       }
     });
@@ -69,14 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   hell(() => {
     document.documentElement.addEventListener('click', function () {
-      if (adModal.classList.contains('active')) {
-        return;
-      }
+      if (adModal.classList.contains('active')) return;
 
       if (canTriggerClickAd) {
         canTriggerClickAd = false;
         window.open('https://example.com/fake-ad-simulation', '_blank');
-
         setTimeout(function () {
           canTriggerClickAd = true;
         }, adCooldown);
@@ -88,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedOption = document.querySelector(
       'input[name="recheio"]:checked',
     );
-
     if (!selectedOption) {
       event.preventDefault();
       alert('Você precisa escolher um recheio para continuar!');
