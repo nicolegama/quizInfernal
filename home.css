@@ -1,4 +1,4 @@
-:root{
+:root {
   --gap: 20px;
   --max-content-width: 1200px;
 }
@@ -15,19 +15,19 @@
 }
 
 .top-content {
-  display: flex; 
-  align-items: center; 
-  justify-content: space-between; 
-  gap: 20px; 
-  margin-bottom: 20px;                
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .top-content h1 {
   font-size: clamp(1.6rem, 6vw, 80px);
   line-height: 1.05;
   margin: 0;
-  flex: 1 1 320px;                   
-  min-width: 0;                      
+  flex: 1 1 320px;
+  min-width: 0;
 }
 
 .top-content img,
@@ -36,18 +36,18 @@
   height: auto;
   display: block;
   object-fit: cover;
-  flex: 0 0 auto;                    
-  width: clamp(160px, 40vw, 400px);  
+  flex: 0 0 auto;
+  width: clamp(160px, 40vw, 400px);
 }
 
 .main p {
-  font-size: clamp(1rem, 2.2vw, 30px); 
+  font-size: clamp(1rem, 2.2vw, 30px);
   margin-top: 0;
   margin-bottom: 1rem;
-  max-width: 58ch;                    
+  max-width: 58ch;
 }
 
-#botao-inicio{
+#botao-inicio {
   padding: clamp(12px, 2.4vw, 25px);
   font-size: clamp(1rem, 2.2vw, 30px);
   background-color: chartreuse;
@@ -77,13 +77,13 @@
   border: none;
   font-family: 'Instrument Serif', serif;
   text-align: center;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   box-sizing: border-box;
 }
 
 #cookie-dialog::backdrop {
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 #cookie-dialog h2 {
@@ -105,30 +105,42 @@
   border-radius: 38px;
   font-size: clamp(1rem, 2.6vw, 36px);
   cursor: pointer;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
   display: inline-block;
 }
 
-.cookie-btn:hover { opacity: 0.92; }
-
+.cookie-btn:hover {
+  opacity: 0.92;
+}
 
 @media (max-width: 1024px) {
   .top-content {
     gap: 16px;
   }
-  #botao-inicio { margin: 40px auto; }
+  #botao-inicio {
+    margin: 40px auto;
+  }
 }
 
 @media (max-width: 768px) {
-  .main { padding: clamp(16px, 6vw, 80px) 5% 20px; }
-  .top-content h1 { font-size: clamp(1.5rem, 7vw, 48px); }
-  .top-content img { width: clamp(140px, 36vw, 420px); }
-  .cookie-btn { padding-left: 28px; padding-right: 28px; }
+  .main {
+    padding: clamp(16px, 6vw, 80px) 5% 20px;
+  }
+  .top-content h1 {
+    font-size: clamp(1.5rem, 7vw, 48px);
+  }
+  .top-content img {
+    width: clamp(140px, 36vw, 420px);
+  }
+  .cookie-btn {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
 }
 
 @media (max-width: 480px) {
   .main {
-    padding: 48px 16px 20px;  
+    padding: 48px 16px 20px;
   }
   .top-content {
     flex-direction: column;
@@ -139,9 +151,13 @@
     font-size: clamp(1.25rem, 9vw, 36px);
     width: 100%;
   }
-  .top-content img { width: 100%; max-height: 280px; object-fit: cover; }
+  .top-content img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+  }
 
-  #botao-inicio{
+  #botao-inicio {
     width: 100%;
     margin: 40px 0;
     padding: 16px;
@@ -159,7 +175,9 @@
     flex-direction: column;
     justify-content: center;
   }
-  #cookie-dialog p { font-size: 1rem; }
+  #cookie-dialog p {
+    font-size: 1rem;
+  }
   .cookie-btn {
     width: 100%;
     padding: 16px;
