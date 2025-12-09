@@ -68,7 +68,10 @@ function setupAnnoyingPopup() {
         thanksMessage.style.fontSize = '24px';
         content.appendChild(thanksMessage);
 
-        setTimeout(() => content.classList.add('weird-slide-out'), 4 * 1000);
+        setTimeout(() => {
+          content.classList.remove('zoom-in-bounce');
+          content.classList.add('weird-slide-out');
+        }, 4 * 1000);
 
         return setTimeout(() => ratingPopup.removeAttribute('open'), 5 * 1000);
       }

@@ -27,7 +27,7 @@
 				<button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
 				<nav class="header-nav" id="headerNav">
 					<a href="../index.html" class="nav-link">Início</a>
-					<a href="../about.html" class="nav-link">About</a>
+					<a href="../about/about.html" class="nav-link">About</a>
 				</nav>
 			</div>
 		</header>
@@ -111,7 +111,7 @@
 		</ul>
 
 		<dialog id="feedback-popup">
-			<div class="dialog-content">
+			<div class="dialog-content zoom-in-bounce">
 				<h2>Você está gostando do quiz???</h2>
 				<div class="buttons">
 					<button type="button">Sim</button>
@@ -121,7 +121,7 @@
 		</dialog>
 
 		<dialog id="rating-popup">
-			<div class="dialog-content">
+			<div class="dialog-content zoom-in-bounce">
 				<h2>Avalie com <span>5 estrelas</span>
 					para continuar</h2>
 				<div class="buttons stars">
@@ -178,8 +178,6 @@
 			const MAX_INTERVAL_MS = 6 * 1000;
 			
 			createNotificationsRandomly();
-			
-			// TODO: atualizar título da página de maneira 🔥 infernal 🔥
 			
 			function getNextInterval() {
 				return Math.max(MIN_INTERVAL_MS, Math.random() * MAX_INTERVAL_MS);

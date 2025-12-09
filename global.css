@@ -444,6 +444,22 @@ body {
   }
 }
 
+@keyframes zoom-in {
+  from {
+    scale: 0;
+    opacity: 0;
+  }
+
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.zoom-in-bounce {
+  animation: zoom-in cubic-bezier(0.16, 0.27, 0, 1.73) 350ms;
+}
+  
 .sr-only {
   position: absolute;
   width: 1px;
